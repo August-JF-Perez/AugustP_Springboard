@@ -1,4 +1,3 @@
+.ipynb_checkpoints
 
-.ipynb_checkpoints/Playing_Around_NB-checkpoint.ipynb
-*.ipynb
-.ipynb_checkpoints/Playing_Around_NB-checkpoint.ipynb
+**/*.ipynb_checkpoints/
