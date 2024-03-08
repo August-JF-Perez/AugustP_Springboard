@@ -155,11 +155,50 @@ QUESTIONS:
 The output of facility name and total revenue, sorted by revenue. Remember
 that there's a different cost for guests and members! */
 
+WITH bf AS 
+        (SELECT b.facid, name, membercost, guestcost, memid, slots
+        FROM Bookings AS b LEFT JOIN Facilities AS f ON b.facid = f.facid),
+    memq AS
+        (SELECT facid, name, count(slots), membercost, (membercost * count(slots)) AS mem_rev
+        FROM bf
+        WHERE memid != 0
+        GROUP BY facid),
+    guestq AS
+        (SELECT facid, name, count(slots), guestcost, (guestcost * count(slots)) AS guest_rev
+        FROM bf
+        WHERE memid = 0
+        GROUP BY facid)
+SELECT memq.name, (mem_rev + guest_rev) AS tot_rev
+FROM memq
+FULL JOIN guestq USING(facid)
+ORDER BY tot_rev
+
 /* Q11: Produce a report of members and who recommended them in alphabetic surname,firstname order */
 
+SELECT m1.memid, CONCAT_WS(' ', m1.surname, m1.firstname) AS mem_fullname,
+	CASE WHEN m1.recommendedby = '' THEN 'N/A'
+    	ELSE CONCAT_WS(' ', m2.surname, m2.firstname) END AS rec_fullname
+FROM Members AS m1
+LEFT JOIN Members AS m2 ON m1.recommendedby = m2.memid
+ORDER BY mem_fullname
 
-/* Q12: Find the facilities with their usage by member, but not guests */
+/* Q12: Find the facilities with their usage by member, but not guests 
 
+AP: I'm understanding this as finding how many total slots each member booked for each facility */
+
+WITH not_guests AS (SELECT bookid, facid, memid, slots FROM Bookings WHERE memid != 0)
+SELECT facid, f.name AS fac_name, memid, SUM(slots) AS total_slots
+FROM not_guests
+LEFT JOIN Facilities AS f USING(facid)
+GROUP BY memid, facid
+ORDER BY memid, facid
 
 /* Q13: Find the facilities usage by month, but not guests */
+
+WITH not_guests AS (SELECT bookid, facid, memid, slots, starttime FROM Bookings WHERE memid != 0)
+SELECT facid, f.name AS fac_name, EXTRACT(MONTH FROM starttime) AS month, SUM(slots) AS total_slots
+FROM not_guests
+LEFT JOIN Facilities AS f USING(facid)
+GROUP BY month, facid
+ORDER BY facid, month
 
