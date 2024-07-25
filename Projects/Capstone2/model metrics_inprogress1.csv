@@ -1,0 +1,32 @@
+Features,Parameter,Parameter Value,Hyperparameter,Hyperparameter Value,Metric,Metric Value
+age,,,algorithm,SAMME,Recall,0.460667
+gender,,,estimator__C,1,accuracy,0.57735
+ethnicity,,,estimator__class_weight,balanced,f1,0.101437
+educationlevel,,,estimator__dual,FALSE,precision,0.057008
+bmi,,,estimator__fit_intercept,TRUE,,
+smoking,,,estimator__intercept_scaling,1,,
+physicalactivity,,,estimator__l1_ratio, None,,
+dietquality,,,estimator__max_iter,500,,
+sleepquality,,,estimator__multi_class,auto,,
+pollutionexposure,,,estimator__n_jobs, None,,
+pollenexposure,,,estimator__penalty,l2,,
+dustexposure,,,estimator__random_state, None,,
+petallergy,,,estimator__solver,liblinear,,
+familyhistoryasthma,,,estimator__tol,0.0001,,
+historyofallergies,,,estimator__verbose,0,,
+eczema,,,estimator__warm_start,FALSE,,
+hayfever,,,estimator," LogisticRegression(class_weight='balanced,  max_iter=500,  solver='liblinear')",,
+gastroesophagealreflux,,,learning_rate,0.1,,
+lungfunctionfev1,,,n_estimators,200,,
+lungfunctionfvc,,, 'random_state' ,9,,
+wheezing,,,,,,
+shortnessofbreath,,,,,,
+chesttightness,,,,,,
+coughing,,,,,,
+nighttimesymptoms,,,,,,
+exerciseinduced,,,,,,
+lifequality,,,,,,
+exposure_count,,,,,,
+lungfunction,,,,,,
+allergy_count,,,,,,
+symptom_count,,,,,,
